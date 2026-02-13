@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RS Global Hub - Full Edition</title>
+    <style>
+        /* 1. ANIMATED THUMBNAIL (SPLASH SCREEN) */
+        #splash-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000 radial-gradient(circle, #1a1a1a 0%, #000 100%);
+            display: flex; justify-content: center; align-items: center; z-index: 10000;
+        }
+        .logo-box { text-align: center; animation: zoomIn 1s ease; }
+        .rs-main-logo {
+            font-size: 80px; font-weight: bold; color: #ffcc00; position: relative;
+            text-shadow: 0 0 30px rgba(255, 204, 0, 0.5);
+            animation: glow 2s infinite alternate;
+        }
+        .crown { position: absolute; top: -35px; left: 50%; transform: translateX(-50%); font-size: 30px; }
+        .loading-text { color: #fff; margin-top: 20px; letter-spacing: 2px; font-size: 12px; opacity: 0.7; }
+        
+        @keyframes glow { from { text-shadow: 0 0 20px #ffcc00; } to { text-shadow: 0 0 40px #ffcc00; transform: scale(1.05); } }
+        @keyframes zoomIn { from { opacity: 0; transform: scale(0.5); } to { opacity: 1; transform: scale(1); } }
+
+        /* 2. MAIN APP STYLE */
+        body { background: #000; color: #fff; font-family: sans-serif; margin: 0; padding: 15px; text-align: center; }
+        #main-app { display: none; }
+        .card { background: #1a1a1a; border-radius: 15px; padding: 15px; border: 1px solid #333; margin-bottom: 20px; text-align: left; }
+        .timer { font-size: 70px; font-weight: bold; color: #ffcc00; margin: 10px 0; text-align: center; }
+        .btn-main { background: #ffcc00; color: #000; border: none; padding: 15px; width: 100%; border-radius: 10px; font-size: 18px; font-weight: bold; cursor: pointer; }
+
+        /* STUDENT HUB GRID */
+        .hub-title { color: #00d2ff; font-weight: bold; margin-bottom: 15px; font-size: 16px; }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .item { background: #111; border: 1px solid #222; padding: 12px; border-radius: 12px; text-align: center; }
+        .item-buy { background: #00d2ff; color: #000; border: none; padding: 8px; width: 100%; border-radius: 5px; font-weight: bold; font-size: 12px; margin-top: 5px; }
+
+        /* SHOPPING HUB (FULL 8 OPTIONS) */
+        .shop-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .s-btn { padding: 15px; border-radius: 10px; font-weight: bold; text-decoration: none; color: #fff; font-size: 14px; text-align: center; }
+        
+        /* Official Colors */
+        .f { background: #2874f0; } .a { background: #ff9900; }
+        .m { background: #ff4ead; } .my { background: #f13ab1; }
+        .dm { background: #228b22; } .bl { background: #ffea00; color: #000; }
+        .z { background: #5d3891; } .zo { background: #cb202d; }
+    </style>
+</head>
+<body>
+
+    <div id="splash-screen">
+        <div class="logo-box">
+            <div class="rs-main-logo"><span class="crown">👑</span>R|S</div>
+            <div class="loading-text">STUDENT HUB LOADING...</div>
+        </div>
+    </div>
+
+    <div id="main-app">
+        <div class="card">
+            <small style="color:#888;">GLOBAL ASSETS</small>
+            <div style="font-size: 28px; font-weight: bold;">🪙 <span id="coin-display">0</span></div>
+            <div style="color:#ffcc00; font-weight: bold;">Value: ₹ <span id="cash-val">0.00</span></div>
+        </div>
+
+        <div class="card">
+            <div class="timer" id="time">10:00</div>
+            <button class="btn-main" id="start-btn" onclick="mine()">UNLOCK MINING SESSION</button>
+        </div>
+
+        <div class="card" style="border-top: 3px solid #00d2ff;">
+            <div class="hub-title">🎓 STUDENT STORE</div>
+            <div class="grid-2">
+                <div class="item">🎒<br>Study Kit<br><small>2000🪙</small><button class="item-buy" onclick="buy(2000, 'Study Kit')">GET</button></div>
+                <div class="item">📚<br>Books<br><small>2000🪙</small><button class="item-buy" onclick="buy(2000, 'Books')">GET</button></div>
+                <div class="item">📓<br>Notebooks<br><small>1000🪙</small><button class="item-buy" onclick="buy(1000, 'Notebooks')">GET</button></div>
+                <div class="item">🖊️<br>Exam Prep<br><small>3000🪙</small><button class="item-buy" onclick="buy(3000, 'Exam Prep')">GET</button></div>
+            </div>
+        </div>
+
+        <div class="card" style="border-top: 3px solid #ffcc00;">
+            <div style="color:#ffcc00; font-weight:bold; margin-bottom:12px;">🌍 ALL ONLINE SHOPPING WEB</div>
+            <div class="shop-grid">
+                <a href="https://flipkart.com" class="s-btn f">Flipkart</a>
+                <a href="https://amazon.in" class="s-btn a">Amazon</a>
+                <a href="https://meesho.com" class="s-btn m">Meesho</a>
+                <a href="https://myntra.com" class="s-btn my">Myntra</a>
+                <a href="https://dmart.in" class="s-btn dm">DMart Ready</a>
+                <a href="https://blinkit.com" class="s-btn bl">Blinkit</a>
+                <a href="https://zeptonow.com" class="s-btn z">Zepto</a>
+                <a href="https://zomato.com" class="s-btn zo">Zomato</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Splash Timer
+        setTimeout(() => {
+            document.getElementById('splash-screen').style.display = 'none';
+            document.getElementById('main-app').style.display = 'block';
+        }, 5000);
+
+        // Logic
+        let coins = localStorage.getItem('rs_coins') ? parseInt(localStorage.getItem('rs_coins')) : 0;
+        let timeLeft = 600; 
+        let isRunning = false;
+        updateUI();
+
+        function mine() {
+            if(isRunning) return;
+            alert("Watching Ad...");
+            setTimeout(() => {
+                isRunning = true;
+                let timerItv = setInterval(() => {
+                    if(timeLeft <= 0) {
+                        clearInterval(timerItv);
+                        coins += 10;
+                        localStorage.setItem('rs_coins', coins);
+                        updateUI();
+                        timeLeft = 600; isRunning = false;
+                        alert("Mined!");
+                    } else {
+                        timeLeft--;
+                        let m = Math.floor(timeLeft/60).toString().padStart(2,'0');
+                        let s = (timeLeft%60).toString().padStart(2,'0');
+                        document.getElementById('time').innerText = `${m}:${s}`;
+                    }
+                }, 1000);
+            }, 2000);
+        }
+
+        function updateUI() {
+            document.getElementById('coin-display').innerText = coins;
+            document.getElementById('cash-val').innerText = (coins / 100).toFixed(2);
+        }
+
+        function buy(p, n) {
+            if(coins >= p) {
+                coins -= p;
+                localStorage.setItem('rs_coins', coins);
+                updateUI();
+                alert("Order Placed for " + n);
+            } else { alert("Not enough coins!"); }
+        }
+    </script>
+</body>
+</html>
