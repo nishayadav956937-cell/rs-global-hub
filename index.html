@@ -1,147 +1,91 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RS Global Hub - Full Edition</title>
+    <title>RS Global Hub - Earn & Shop</title>
+    <script src="https://unityads.unity3d.com/sdk/3.4/UnityAds.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* 1. ANIMATED THUMBNAIL (SPLASH SCREEN) */
-        #splash-screen {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #000 radial-gradient(circle, #1a1a1a 0%, #000 100%);
-            display: flex; justify-content: center; align-items: center; z-index: 10000;
-        }
-        .logo-box { text-align: center; animation: zoomIn 1s ease; }
-        .rs-main-logo {
-            font-size: 80px; font-weight: bold; color: #ffcc00; position: relative;
-            text-shadow: 0 0 30px rgba(255, 204, 0, 0.5);
-            animation: glow 2s infinite alternate;
-        }
-        .crown { position: absolute; top: -35px; left: 50%; transform: translateX(-50%); font-size: 30px; }
-        .loading-text { color: #fff; margin-top: 20px; letter-spacing: 2px; font-size: 12px; opacity: 0.7; }
-        
-        @keyframes glow { from { text-shadow: 0 0 20px #ffcc00; } to { text-shadow: 0 0 40px #ffcc00; transform: scale(1.05); } }
-        @keyframes zoomIn { from { opacity: 0; transform: scale(0.5); } to { opacity: 1; transform: scale(1); } }
-
-        /* 2. MAIN APP STYLE */
-        body { background: #000; color: #fff; font-family: sans-serif; margin: 0; padding: 15px; text-align: center; }
-        #main-app { display: none; }
-        .card { background: #1a1a1a; border-radius: 15px; padding: 15px; border: 1px solid #333; margin-bottom: 20px; text-align: left; }
-        .timer { font-size: 70px; font-weight: bold; color: #ffcc00; margin: 10px 0; text-align: center; }
-        .btn-main { background: #ffcc00; color: #000; border: none; padding: 15px; width: 100%; border-radius: 10px; font-size: 18px; font-weight: bold; cursor: pointer; }
-
-        /* STUDENT HUB GRID */
-        .hub-title { color: #00d2ff; font-weight: bold; margin-bottom: 15px; font-size: 16px; }
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .item { background: #111; border: 1px solid #222; padding: 12px; border-radius: 12px; text-align: center; }
-        .item-buy { background: #00d2ff; color: #000; border: none; padding: 8px; width: 100%; border-radius: 5px; font-weight: bold; font-size: 12px; margin-top: 5px; }
-
-        /* SHOPPING HUB (FULL 8 OPTIONS) */
-        .shop-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .s-btn { padding: 15px; border-radius: 10px; font-weight: bold; text-decoration: none; color: #fff; font-size: 14px; text-align: center; }
-        
-        /* Official Colors */
-        .f { background: #2874f0; } .a { background: #ff9900; }
-        .m { background: #ff4ead; } .my { background: #f13ab1; }
-        .dm { background: #228b22; } .bl { background: #ffea00; color: #000; }
-        .z { background: #5d3891; } .zo { background: #cb202d; }
+        .goog-te-banner-frame.skiptranslate { display: none !important; } 
+        body { top: 0px !important; }
+        #google_translate_element { margin-bottom: 10px; }
     </style>
 </head>
-<body>
+<body class="bg-black text-white font-sans">
 
-    <div id="splash-screen">
-        <div class="logo-box">
-            <div class="rs-main-logo"><span class="crown">👑</span>R|S</div>
-            <div class="loading-text">STUDENT HUB LOADING...</div>
+    <div class="p-4 flex justify-between items-center border-b border-gray-800 bg-gray-900 sticky top-0 z-50">
+        <div>
+            <h1 class="text-xl font-bold text-red-600 tracking-tighter">R|S GLOBAL</h1>
+            <div id="google_translate_element"></div>
+        </div>
+        <div id="coinCount" class="text-yellow-400 font-bold bg-gray-800 px-3 py-1 rounded-full border border-yellow-600 shadow-[0_0_10px_rgba(202,138,4,0.3)]">🪙 0</div>
+    </div>
+
+    <div class="m-5 p-8 bg-gradient-to-b from-gray-900 to-black rounded-3xl text-center border border-gray-800 shadow-2xl">
+        <p class="text-gray-400 text-xs mb-2 uppercase tracking-widest">Mining Balance</p>
+        <h2 class="text-6xl font-black mb-8 text-white" id="sessionCoins">0</h2>
+        
+        <button onclick="showUnityAd()" class="w-full bg-red-600 hover:bg-red-700 text-white font-extrabold py-5 rounded-2xl transition-all transform active:scale-95 text-lg shadow-[0_0_20px_rgba(220,38,38,0.5)]">
+            <i class="fas fa-play-circle mr-2"></i> UNLOCK MINING
+        </button>
+        <p class="text-[10px] text-gray-400 mt-4 italic">Watch 1 Ad = 10 Coins (₹0.10)</p>
+    </div>
+
+    <div class="px-5 pb-20">
+        <h3 class="text-blue-500 font-bold mb-4 flex items-center gap-2 uppercase text-sm tracking-widest border-l-4 border-blue-500 pl-2">
+            <i class="fas fa-shopping-bag"></i> Shopping Hub
+        </h3>
+        <div class="grid grid-cols-2 gap-3">
+            <a href="https://www.amazon.in" class="bg-gray-900 p-4 rounded-xl text-center border border-gray-800 font-bold hover:bg-gray-800">Amazon</a>
+            <a href="https://www.flipkart.com" class="bg-gray-900 p-4 rounded-xl text-center border border-gray-800 font-bold hover:bg-gray-800">Flipkart</a>
+            <a href="https://www.meesho.com" class="bg-gray-900 p-4 rounded-xl text-center border border-gray-800 font-bold hover:bg-gray-800">Meesho</a>
+            <a href="https://www.zomato.com" class="bg-gray-900 p-4 rounded-xl text-center border border-gray-800 font-bold hover:bg-gray-800">Zomato</a>
         </div>
     </div>
 
-    <div id="main-app">
-        <div class="card">
-            <small style="color:#888;">GLOBAL ASSETS</small>
-            <div style="font-size: 28px; font-weight: bold;">🪙 <span id="coin-display">0</span></div>
-            <div style="color:#ffcc00; font-weight: bold;">Value: ₹ <span id="cash-val">0.00</span></div>
-        </div>
-
-        <div class="card">
-            <div class="timer" id="time">10:00</div>
-            <button class="btn-main" id="start-btn" onclick="mine()">UNLOCK MINING SESSION</button>
-        </div>
-
-        <div class="card" style="border-top: 3px solid #00d2ff;">
-            <div class="hub-title">🎓 STUDENT STORE</div>
-            <div class="grid-2">
-                <div class="item">🎒<br>Study Kit<br><small>2000🪙</small><button class="item-buy" onclick="buy(2000, 'Study Kit')">GET</button></div>
-                <div class="item">📚<br>Books<br><small>2000🪙</small><button class="item-buy" onclick="buy(2000, 'Books')">GET</button></div>
-                <div class="item">📓<br>Notebooks<br><small>1000🪙</small><button class="item-buy" onclick="buy(1000, 'Notebooks')">GET</button></div>
-                <div class="item">🖊️<br>Exam Prep<br><small>3000🪙</small><button class="item-buy" onclick="buy(3000, 'Exam Prep')">GET</button></div>
-            </div>
-        </div>
-
-        <div class="card" style="border-top: 3px solid #ffcc00;">
-            <div style="color:#ffcc00; font-weight:bold; margin-bottom:12px;">🌍 ALL ONLINE SHOPPING WEB</div>
-            <div class="shop-grid">
-                <a href="https://flipkart.com" class="s-btn f">Flipkart</a>
-                <a href="https://amazon.in" class="s-btn a">Amazon</a>
-                <a href="https://meesho.com" class="s-btn m">Meesho</a>
-                <a href="https://myntra.com" class="s-btn my">Myntra</a>
-                <a href="https://dmart.in" class="s-btn dm">DMart Ready</a>
-                <a href="https://blinkit.com" class="s-btn bl">Blinkit</a>
-                <a href="https://zeptonow.com" class="s-btn z">Zepto</a>
-                <a href="https://zomato.com" class="s-btn zo">Zomato</a>
-            </div>
-        </div>
-    </div>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
     <script>
-        // Splash Timer
-        setTimeout(() => {
-            document.getElementById('splash-screen').style.display = 'none';
-            document.getElementById('main-app').style.display = 'block';
-        }, 5000);
+        const gameId = "6047299"; 
+        const placementId = "Rewarded_Android"; 
+        const testMode = true; 
 
-        // Logic
-        let coins = localStorage.getItem('rs_coins') ? parseInt(localStorage.getItem('rs_coins')) : 0;
-        let timeLeft = 600; 
-        let isRunning = false;
-        updateUI();
+        UnityAds.initialize(gameId, testMode);
 
-        function mine() {
-            if(isRunning) return;
-            alert("Watching Ad...");
-            setTimeout(() => {
-                isRunning = true;
-                let timerItv = setInterval(() => {
-                    if(timeLeft <= 0) {
-                        clearInterval(timerItv);
-                        coins += 10;
-                        localStorage.setItem('rs_coins', coins);
-                        updateUI();
-                        timeLeft = 600; isRunning = false;
-                        alert("Mined!");
-                    } else {
-                        timeLeft--;
-                        let m = Math.floor(timeLeft/60).toString().padStart(2,'0');
-                        let s = (timeLeft%60).toString().padStart(2,'0');
-                        document.getElementById('time').innerText = `${m}:${s}`;
-                    }
-                }, 1000);
-            }, 2000);
+        let totalCoins = parseInt(localStorage.getItem('coins')) || 0;
+
+        function updateDisplay() {
+            document.getElementById('coinCount').innerText = "🪙 " + totalCoins;
+            document.getElementById('sessionCoins').innerText = totalCoins;
+            localStorage.setItem('coins', totalCoins);
         }
 
-        function updateUI() {
-            document.getElementById('coin-display').innerText = coins;
-            document.getElementById('cash-val').innerText = (coins / 100).toFixed(2);
+        function showUnityAd() {
+            if (UnityAds.isReady(placementId)) {
+                UnityAds.show(placementId);
+            } else {
+                alert("Ad Loading... Shuru hone mein thoda waqt lagta hai (5-10 sec).");
+                UnityAds.initialize(gameId, testMode);
+            }
         }
 
-        function buy(p, n) {
-            if(coins >= p) {
-                coins -= p;
-                localStorage.setItem('rs_coins', coins);
-                updateUI();
-                alert("Order Placed for " + n);
-            } else { alert("Not enough coins!"); }
-        }
+        window.unityAdsFinished = function(placementId, state) {
+            if (state === "COMPLETED") {
+                totalCoins += 10;
+                updateDisplay();
+                alert("Success! 10 Coins added to your wallet.");
+            }
+        };
+
+        updateDisplay();
     </script>
 </body>
 </html>
+        
