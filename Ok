@@ -1,0 +1,56 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RS Global Hub</title>
+    <script src="https://unityads.unity3d.com/sdk/3.4/UnityAds.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-black text-white font-sans">
+    <div id="google_translate_element" class="p-2 bg-gray-900"></div>
+    
+    <div class="p-4 flex justify-between items-center border-b border-gray-800">
+        <h1 class="text-xl font-bold text-red-600">R|S GLOBAL HUB</h1>
+        <div id="coinCount" class="text-yellow-400 font-bold">🪙 0</div>
+    </div>
+
+    <div class="m-5 p-10 bg-gray-900 rounded-3xl text-center border border-gray-800 shadow-2xl">
+        <p class="text-gray-400 mb-2">Available Balance</p>
+        <h2 class="text-5xl font-black mb-8" id="sessionCoins">0</h2>
+        <button onclick="showUnityAd()" class="w-full bg-red-600 text-white font-extrabold py-5 rounded-2xl text-lg">
+            UNLOCK MINING SESSION
+        </button>
+        <p class="text-[10px] text-gray-500 mt-4">Watch 1 Ad = 10 Coins</p>
+    </div>
+
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <script>
+        const gameId = "6047299"; 
+        const placementId = "Rewarded_Android"; 
+        UnityAds.initialize(gameId, true);
+        let totalCoins = parseInt(localStorage.getItem('coins')) || 0;
+        function updateDisplay() {
+            document.getElementById('coinCount').innerText = "🪙 " + totalCoins;
+            document.getElementById('sessionCoins').innerText = totalCoins;
+            localStorage.setItem('coins', totalCoins);
+        }
+        function showUnityAd() {
+            if (UnityAds.isReady(placementId)) { UnityAds.show(placementId); } 
+            else { alert("Ad Loading... Please wait 5 seconds."); }
+        }
+        window.unityAdsFinished = function(placementId, state) {
+            if (state === "COMPLETED") { totalCoins += 10; updateDisplay(); }
+        };
+        updateDisplay();
+    </script>
+</body>
+</html>
+           
